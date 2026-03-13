@@ -93,6 +93,7 @@ function install_ubuntu_deps() {
     ocl-icd-opencl-dev \
     portaudio19-dev \
     python3-dev \
+    python3-tk \
     python3-venv \
     g++-12 \
     qtbase5-dev \
