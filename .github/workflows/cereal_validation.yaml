@@ -56,6 +56,8 @@ jobs:
     name: Validate cereal with Upstream
     runs-on: ubuntu-24.04
     needs: generate_cereal_artifact
+    env:
+      BUILD: upstream/selfdrive/test/docker_build.sh base
     steps:
       - uses: actions/checkout@v4
         with:
@@ -67,11 +69,15 @@ jobs:
           ref: "refs/heads/master"
           path: upstream
       - uses: ./.github/workflows/setup-with-retry
-        env:
-          BUILD: upstream/selfdrive/test/docker_build.sh base
       - name: Pull upstream LFS files
         working-directory: upstream
         run: git lfs pull
+      - name: Ensure upstream base image exists
+        run: |
+          if ! docker image inspect "$BASE_IMAGE:latest" >/dev/null 2>&1; then
+            echo "Base image $BASE_IMAGE:latest not found. Building from upstream checkout..."
+            upstream/selfdrive/test/docker_build.sh base
+          fi
       - name: Build openpilot
         working-directory: upstream
         run: ${{ env.RUN }} "scons -j$(nproc) cereal"
