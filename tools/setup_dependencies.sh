@@ -95,6 +95,7 @@ function install_ubuntu_deps() {
     python3-dev \
     python3-tk \
     python3-venv \
+    x11-xserver-utils \
     g++-12 \
     qtbase5-dev \
     qtbase5-dev-tools \
