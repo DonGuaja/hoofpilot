@@ -67,6 +67,8 @@ jobs:
           ref: "refs/heads/master"
           path: upstream
       - uses: ./.github/workflows/setup-with-retry
+        env:
+          BUILD: upstream/selfdrive/test/docker_build.sh base
       - name: Pull upstream LFS files
         working-directory: upstream
         run: git lfs pull
