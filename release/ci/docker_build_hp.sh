@@ -4,8 +4,8 @@ set -e
 SCRIPT_DIR=$(dirname "$0")
 OPENPILOT_DIR=$SCRIPT_DIR/../../
 
-DOCKER_IMAGE=openpilot
-DOCKER_FILE=Dockerfile.openpilot
+DOCKER_IMAGE=hoofpilot
+DOCKER_FILE=Dockerfile.hoofpilot
 DOCKER_REGISTRY=ghcr.io/hoofpilot
 COMMIT_SHA=$(git rev-parse HEAD)
 
