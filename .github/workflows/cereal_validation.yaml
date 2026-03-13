@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs: generate_cereal_artifact
     env:
-      BUILD: upstream/selfdrive/test/docker_build.sh base
+      BUILD: echo "Skipping docker build in setup - upstream image built explicitly below"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -72,12 +72,15 @@ jobs:
       - name: Pull upstream LFS files
         working-directory: upstream
         run: git lfs pull
-      - name: Ensure upstream base image exists
+      - name: Build upstream base image
         run: |
-          if ! docker image inspect "$BASE_IMAGE:latest" >/dev/null 2>&1; then
-            echo "Base image $BASE_IMAGE:latest not found. Building from upstream checkout..."
-            upstream/selfdrive/test/docker_build.sh base
-          fi
+          source selfdrive/test/docker_common.sh base ""
+          DOCKER_BUILDKIT=1 docker buildx build --provenance false --pull \
+            --platform linux/$(uname -m) --load \
+            --cache-to type=inline \
+            --cache-from type=registry,ref=$REMOTE_TAG \
+            -t $DOCKER_IMAGE:latest -t $REMOTE_TAG -t $LOCAL_TAG \
+            -f upstream/$DOCKER_FILE upstream/
       - name: Build openpilot
         working-directory: upstream
         run: ${{ env.RUN }} "scons -j$(nproc) cereal"
