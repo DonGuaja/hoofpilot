@@ -59,18 +59,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          submodules: true
+      - uses: actions/checkout@v4
+        with:
           repository: 'commaai/openpilot'
           submodules: true
           ref: "refs/heads/master"
+          path: upstream
       - uses: ./.github/workflows/setup-with-retry
+      - name: Pull upstream LFS files
+        working-directory: upstream
+        run: git lfs pull
       - name: Build openpilot
+        working-directory: upstream
         run: ${{ env.RUN }} "scons -j$(nproc) cereal"
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: cereal_validations
-          path: cereal/messaging/tests/cereal_validations
+          path: upstream/cereal/messaging/tests/cereal_validations
       - name: 'Run the validation'
+        working-directory: upstream
         run: |
           chmod +x cereal/messaging/tests/cereal_validations/validate_sp_cereal_upstream.py
           ${{ env.RUN }} "cereal/messaging/tests/cereal_validations/validate_sp_cereal_upstream.py -r -f cereal/messaging/tests/cereal_validations/schema_instances.bin"
