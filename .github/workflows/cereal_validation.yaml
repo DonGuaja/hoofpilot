@@ -73,14 +73,15 @@ jobs:
         working-directory: upstream
         run: git lfs pull
       - name: Build upstream base image
+        working-directory: upstream
         run: |
-          source selfdrive/test/docker_common.sh base ""
+          source ../selfdrive/test/docker_common.sh base ""
           DOCKER_BUILDKIT=1 docker buildx build --provenance false --pull \
             --platform linux/$(uname -m) --load \
             --cache-to type=inline \
             --cache-from type=registry,ref=$REMOTE_TAG \
             -t $DOCKER_IMAGE:latest -t $REMOTE_TAG -t $LOCAL_TAG \
-            -f upstream/$DOCKER_FILE upstream/
+            -f $DOCKER_FILE .
       - name: Build openpilot
         working-directory: upstream
         run: ${{ env.RUN }} "scons -j$(nproc) cereal"
