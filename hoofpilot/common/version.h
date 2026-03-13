@@ -1,1 +1,1 @@
-#define SUNNYPILOT_VERSION "Appaloosa"
+#define SUNNYPILOT_VERSION "Falabella"
