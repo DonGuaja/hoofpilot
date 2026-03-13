@@ -30,7 +30,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-      - run: ./tools/op.sh setup
+      - run: |
+          sudo chmod +x tools/setup_dependencies.sh
+          ./tools/op.sh setup
       - name: Build openpilot
         run: scons -j$(nproc) cereal
       - name: Generate the log file
@@ -62,7 +64,9 @@ jobs:
           path: openpilot
           submodules: true
           ref: "refs/heads/master"
-      - run: ./tools/op.sh setup
+      - run: |
+          sudo chmod +x tools/setup_dependencies.sh
+          ./tools/op.sh setup
       - name: Build openpilot
         working-directory: openpilot
         run: scons -j$(nproc) cereal

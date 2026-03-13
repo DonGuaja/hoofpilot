@@ -47,7 +47,9 @@ jobs:
     - name: Build devel
       timeout-minutes: 1
       run: ALLOW_WIPE_TARGET_DIR=1 TARGET_DIR=$STRIPPED_DIR release/build_stripped.sh
-    - run: ./tools/op.sh setup
+    - run: |
+        sudo chmod +x tools/setup_dependencies.sh
+        ./tools/op.sh setup
     - name: Build openpilot and run checks
       timeout-minutes: 30
       working-directory: ${{ env.STRIPPED_DIR }}
@@ -91,7 +93,9 @@ jobs:
     - uses: actions/checkout@v6
       with:
         submodules: true
-    - run: ./tools/op.sh setup
+    - run: |
+        sudo chmod +x tools/setup_dependencies.sh
+        ./tools/op.sh setup
     - name: Building openpilot
       run: scons
 
@@ -109,7 +113,9 @@ jobs:
     - uses: actions/checkout@v6
       with:
         submodules: true
-    - run: ./tools/op.sh setup
+    - run: |
+        sudo chmod +x tools/setup_dependencies.sh
+        ./tools/op.sh setup
     - name: Static analysis
       timeout-minutes: 1
       run: scripts/lint/lint.sh
@@ -126,7 +132,9 @@ jobs:
     - uses: actions/checkout@v6
       with:
         submodules: true
-    - run: ./tools/op.sh setup
+    - run: |
+        sudo chmod +x tools/setup_dependencies.sh
+        ./tools/op.sh setup
     - name: Build openpilot
       run: scons -j$(nproc)
     - name: Run unit tests
@@ -150,7 +158,9 @@ jobs:
     - uses: actions/checkout@v6
       with:
         submodules: true
-    - run: ./tools/op.sh setup
+    - run: |
+        sudo chmod +x tools/setup_dependencies.sh
+        ./tools/op.sh setup
     - name: Build openpilot
       run: scons -j$(nproc)
     - name: Run replay
@@ -181,7 +191,9 @@ jobs:
     - uses: actions/checkout@v6
       with:
         submodules: true
-    - run: ./tools/op.sh setup
+    - run: |
+        sudo chmod +x tools/setup_dependencies.sh
+        ./tools/op.sh setup
     - name: Build openpilot
       run: scons -j$(nproc)
     - name: Driving test
@@ -202,7 +214,9 @@ jobs:
       - uses: actions/checkout@v6
         with:
           submodules: true
-      - run: ./tools/op.sh setup
+      - run: |
+          sudo chmod +x tools/setup_dependencies.sh
+          ./tools/op.sh setup
       - name: Build openpilot
         run: scons -j$(nproc)
       - name: Create raylib UI Report
@@ -227,7 +241,9 @@ jobs:
       - uses: actions/checkout@v6
         with:
           submodules: true
-      - run: ./tools/op.sh setup
+      - run: |
+          sudo chmod +x tools/setup_dependencies.sh
+          ./tools/op.sh setup
       - name: Build openpilot
         run: scons -j$(nproc)
       - name: Create mici raylib UI Report
