@@ -10,18 +10,17 @@ authors = [
 
 dependencies = [
   # commaai pre-built native dependencies
-  "bzip2 @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=bzip2",
-  "capnproto @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=capnproto",
-  "eigen @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=eigen",
-  "ffmpeg @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=ffmpeg",
-  "gcc-arm-none-eabi @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=gcc-arm-none-eabi",
-  "git-lfs @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=git-lfs",
-  "libjpeg @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=libjpeg",
-  "libyuv @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=libyuv",
-  "ncurses @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=ncurses",
-  "python3-dev @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=python3-dev",
-  "zeromq @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=zeromq",
-  "zstd @ git+https://github.com/commaai/dependencies.git@releases#subdirectory=zstd",
+  "bzip2 @ git+https://github.com/commaai/dependencies.git@release-bzip2#subdirectory=bzip2",
+  "capnproto @ git+https://github.com/commaai/dependencies.git@release-capnproto#subdirectory=capnproto",
+  "eigen @ git+https://github.com/commaai/dependencies.git@release-eigen#subdirectory=eigen",
+  "ffmpeg @ git+https://github.com/commaai/dependencies.git@release-ffmpeg#subdirectory=ffmpeg",
+  "gcc-arm-none-eabi @ git+https://github.com/commaai/dependencies.git@release-gcc-arm-none-eabi#subdirectory=gcc-arm-none-eabi",
+  "git-lfs @ git+https://github.com/commaai/dependencies.git@release-git-lfs#subdirectory=git-lfs",
+  "libjpeg @ git+https://github.com/commaai/dependencies.git@release-libjpeg#subdirectory=libjpeg",
+  "libyuv @ git+https://github.com/commaai/dependencies.git@release-libyuv#subdirectory=libyuv",
+  "ncurses @ git+https://github.com/commaai/dependencies.git@release-ncurses#subdirectory=ncurses",
+  "zeromq @ git+https://github.com/commaai/dependencies.git@release-zeromq#subdirectory=zeromq",
+  "zstd @ git+https://github.com/commaai/dependencies.git@release-zstd#subdirectory=zstd",
 
   # multiple users
   "sounddevice",  # micd + soundd
