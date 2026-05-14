@@ -412,4 +412,3 @@ class SpeedLimitAssist:
     self.output_a_target = self.get_a_target_from_control()
 
     self.frame += 1
-

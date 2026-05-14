@@ -79,4 +79,3 @@ class LaneChangeSettingsLayout(Widget):
     if not enable_bsm and ui_state.params.get_bool("AutoLaneChangeBsmDelay"):
       ui_state.params.remove("AutoLaneChangeBsmDelay")
     self._bsm_delay.action_item.set_enabled(enable_bsm and ui_state.params.get("AutoLaneChangeTimer", return_default=True) > AutoLaneChangeMode.NUDGE)
-

@@ -135,4 +135,3 @@ class MadsSettingsLayout(Widget):
 
       self._steering_mode.action_item.set_enabled(True)
       self._steering_mode.action_item.set_enabled_buttons(None)
-

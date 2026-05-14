@@ -8,7 +8,7 @@ from openpilot.selfdrive.ui.hoofpilot.layouts.settings.vehicle.brands.base impor
 from openpilot.selfdrive.ui.ui_state import ui_state
 from openpilot.system.ui.lib.multilang import tr
 from openpilot.system.ui.hoofpilot.widgets.list_view import multiple_button_item_sp
-from opendbc.car.hyundai.values import CAR, CANFD_UNSUPPORTED_LONGITUDINAL_CAR, UNSUPPORTED_LONGITUDINAL_CAR
+from opendbc.car.hyundai.values import CAR, UNSUPPORTED_LONGITUDINAL_CAR
 
 
 class HyundaiSettings(BrandSettings):
@@ -31,7 +31,7 @@ class HyundaiSettings(BrandSettings):
     bundle = ui_state.params.get("CarPlatformBundle")
     if bundle:
       platform = bundle.get("platform")
-      self.alpha_long_available = CAR[platform] not in (UNSUPPORTED_LONGITUDINAL_CAR | CANFD_UNSUPPORTED_LONGITUDINAL_CAR)
+      self.alpha_long_available = CAR[platform] not in set().union(*UNSUPPORTED_LONGITUDINAL_CAR.values())
     elif ui_state.CP is not None:
       self.alpha_long_available = ui_state.CP.alphaLongitudinalAvailable
 
@@ -57,4 +57,3 @@ class HyundaiSettings(BrandSettings):
     self.longitudinal_tuning_item.show_description(True)
     self.longitudinal_tuning_item.action_item.set_selected_button(tuning_param)
     self.longitudinal_tuning_item.set_visible(self.alpha_long_available)
-

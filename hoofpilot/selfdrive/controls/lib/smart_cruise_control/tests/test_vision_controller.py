@@ -212,4 +212,3 @@ class TestSmartCruiseControlVision:
       assert self.scc_v.state == VisionState.enabled
 
   # TODO-SP: mock modelV2 data to test other states
-

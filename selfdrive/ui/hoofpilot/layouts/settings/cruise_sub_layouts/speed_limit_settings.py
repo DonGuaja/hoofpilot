@@ -176,4 +176,3 @@ class SpeedLimitSettingsLayout(Widget):
   def hide_event(self):
     self._current_panel = PanelType.SETTINGS
     self._scroller.hide_event()
-

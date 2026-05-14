@@ -9,7 +9,7 @@ from openpilot.system.ui.lib.multilang import tr, tr_noop
 from openpilot.system.ui.widgets import DialogResult
 from openpilot.selfdrive.ui.ui_state import ui_state
 
-if gui_app.sunnypilot_ui():
+if gui_app.hoofpilot_ui():
   from openpilot.system.ui.hoofpilot.widgets.list_view import toggle_item_sp as toggle_item
   from openpilot.system.ui.hoofpilot.widgets.list_view import multiple_button_item_sp as multiple_button_item
 
@@ -42,7 +42,7 @@ class TogglesLayout(Widget):
   def __init__(self):
     super().__init__()
     self._params = Params()
-    self._is_release = self._params.get_bool("IsReleaseBranch")
+    self._is_release = False  # self._params.get_bool("IsReleaseBranch")
 
     # param, title, desc, icon, needs_restart
     self._toggle_defs = {
@@ -152,6 +152,7 @@ class TogglesLayout(Widget):
       ui_state.personality = personality
 
   def show_event(self):
+    super().show_event()
     self._scroller.show_event()
     self._update_toggles()
 
@@ -218,7 +219,7 @@ class TogglesLayout(Widget):
   def _handle_experimental_mode_toggle(self, state: bool):
     confirmed = self._params.get_bool("ExperimentalModeConfirmed")
     if state and not confirmed:
-      def confirm_callback(result: int):
+      def confirm_callback(result: DialogResult):
         if result == DialogResult.CONFIRM:
           self._params.put_bool("ExperimentalMode", True)
           self._params.put_bool("ExperimentalModeConfirmed", True)
@@ -229,8 +230,8 @@ class TogglesLayout(Widget):
       # show confirmation dialog
       content = (f"<h1>{self._toggles['ExperimentalMode'].title}</h1><br>" +
                  f"<p>{self._toggles['ExperimentalMode'].description}</p>")
-      dlg = ConfirmDialog(content, tr("Enable"), rich=True)
-      gui_app.set_modal_overlay(dlg, callback=confirm_callback)
+      dlg = ConfirmDialog(content, tr("Enable"), rich=True, callback=confirm_callback)
+      gui_app.push_widget(dlg)
     else:
       self._update_experimental_mode_icon()
       self._params.put_bool("ExperimentalMode", state)
