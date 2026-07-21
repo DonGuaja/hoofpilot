@@ -18,6 +18,7 @@ from openpilot.system.manager.process_config import managed_processes
 from openpilot.system.athena.registration import register, UNREGISTERED_DONGLE_ID
 from openpilot.common.swaglog import cloudlog, add_file_handler
 from openpilot.system.version import get_build_metadata
+from openpilot.common.ignition import get_ignition_state
 from openpilot.system.hardware.hw import Paths
 from openpilot.system.hardware.ignition_state import ignition_state
 from openpilot.system.hardware import PC
@@ -155,7 +156,8 @@ def manager_thread() -> None:
     elif not started and started_prev:
       params.clear_all(ParamKeyFlag.CLEAR_ON_OFFROAD_TRANSITION)
 
-    ignition = ignition_state.update(sm['pandaStates'])
+    ignition = get_ignition_state(sm['pandaStates'])
+    
     if ignition and not ignition_prev:
       params.clear_all(ParamKeyFlag.CLEAR_ON_IGNITION_ON)
 
